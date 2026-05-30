@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
 let currentSection = null;
 
 function openSection(name) {
-  // Close any open section first (instant swap)
   if (currentSection && currentSection !== name) {
     const prev = document.getElementById(currentSection + '-page');
     if (prev) prev.classList.remove('open');
@@ -33,17 +32,19 @@ function openSection(name) {
   const page = document.getElementById(name + '-page');
   if (!page) return;
 
-  // Slide main page up
   document.getElementById('main-page').classList.add('slide-up');
 
-  // Slide section page up from bottom
   requestAnimationFrame(() => {
     page.classList.add('open');
   });
 
   currentSection = name;
 
-  // Update sidebar active states
+  // 섹션 헤더 표시, 메인 lang 토글 숨김
+  document.getElementById('section-header').classList.add('visible');
+  document.getElementById('lang-toggle').classList.add('hidden');
+
+  // 사이드바 active 상태 업데이트
   document.querySelectorAll('.sidebar-nav-item').forEach(el => {
     el.classList.toggle('active', el.textContent.trim().toLowerCase() === name);
   });
@@ -57,6 +58,10 @@ function closeSection() {
 
   document.getElementById('main-page').classList.remove('slide-up');
   currentSection = null;
+
+  // 섹션 헤더 숨김, 메인 lang 토글 복원
+  document.getElementById('section-header').classList.remove('visible');
+  document.getElementById('lang-toggle').classList.remove('hidden');
 }
 
 // Close section on logo click (already wired via onclick)

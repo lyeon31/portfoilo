@@ -24,18 +24,48 @@ html, body {
   color: var(--white);
 }
 
-/* ───────────── LANGUAGE TOGGLE ───────────── */
-.lang-toggle {
+/* ───────────── SECTION HEADER ───────────── */
+#section-header {
   position: fixed;
-  top: 20px;
-  right: 28px;
-  z-index: 200;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--black);
+  z-index: 30;
   display: flex;
   align-items: center;
-  gap: 6px;
-  mix-blend-mode: difference; /* 배경색에 관계없이 항상 보임 */
+  justify-content: space-between;
+  padding: 0 36px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s 0.25s;
 }
 
+#section-header.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.sh-logo {
+  height: 28px;
+  width: auto;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+.sh-logo:hover {
+  opacity: 0.6;
+}
+
+.sh-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ───────────── LANG BUTTONS (공통) ───────────── */
 .lang-btn {
   background: none;
   border: none;
@@ -65,6 +95,24 @@ html, body {
   font-size: 9px;
   opacity: 0.3;
   line-height: 1;
+}
+
+/* ───────────── MAIN LANG TOGGLE (메인 페이지) ───────────── */
+.lang-toggle {
+  position: fixed;
+  top: 20px;
+  right: 28px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  mix-blend-mode: difference;
+  transition: opacity 0.25s;
+}
+
+.lang-toggle.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ───────────── MAIN PAGE ───────────── */
@@ -185,6 +233,7 @@ html, body {
 .section-page {
   position: fixed;
   inset: 0;
+  padding-top: 64px; /* 섹션 헤더 높이만큼 오프셋 */
   display: flex;
   background: var(--white);
   color: var(--black);
@@ -201,47 +250,41 @@ html, body {
 .sidebar {
   width: var(--sidebar-w);
   min-width: var(--sidebar-w);
-  background: var(--black);
-  color: var(--white);
+  background: var(--white);
+  color: var(--black);
   display: flex;
   flex-direction: column;
-  padding: 32px 40px;
-  border-right: 1px solid var(--border);
+  padding: 40px 44px;
+  border-right: none;
   position: relative;
   z-index: 2;
-}
-
-.sidebar-logo {
-  width: 100px;
-  height: auto;
-  cursor: pointer;
-  margin-bottom: auto;
-  transition: opacity 0.2s;
-}
-
-.sidebar-logo:hover {
-  opacity: 0.7;
 }
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  margin-top: auto; /* nav를 하단으로 */
+  padding-bottom: 8px;
 }
 
 .sidebar-nav-item {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   cursor: pointer;
-  color: #555;
-  transition: color 0.2s;
-  padding: 4px 0;
+  color: #bbb;
+  transition: color 0.2s, font-size 0.2s;
+  padding: 2px 0;
+  line-height: 1.2;
 }
 
-.sidebar-nav-item:hover,
+.sidebar-nav-item:hover {
+  color: #555;
+}
+
 .sidebar-nav-item.active {
-  color: var(--white);
+  color: var(--black);
 }
 
 /* Grid main */

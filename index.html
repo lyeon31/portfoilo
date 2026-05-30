@@ -8,7 +8,19 @@
 </head>
 <body>
 
-  <!-- LANGUAGE TOGGLE -->
+  <!-- SECTION HEADER (섹션 페이지에서만 보이는 상단 헤더) -->
+  <header id="section-header" class="section-header">
+    <img src="img/logo-white.png" alt="Diskité" class="sh-logo" onclick="closeSection()" />
+    <div class="sh-lang">
+      <button class="lang-btn active" data-lang="ko" onclick="setLang('ko')">KO</button>
+      <span class="lang-divider">·</span>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      <span class="lang-divider">·</span>
+      <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">JA</button>
+    </div>
+  </header>
+
+  <!-- MAIN LANG TOGGLE (메인 페이지 전용) -->
   <div id="lang-toggle" class="lang-toggle">
     <button class="lang-btn active" data-lang="ko" onclick="setLang('ko')">KO</button>
     <span class="lang-divider">·</span>
@@ -55,7 +67,6 @@
   <!-- BOOK PAGE -->
   <div id="book-page" class="section-page" data-section="book">
     <aside class="sidebar">
-      <img src="img/logo-white.png" alt="Diskité" class="sidebar-logo" onclick="closeSection()" />
       <nav class="sidebar-nav">
         <div class="sidebar-nav-item active" onclick="openSection('book')">BOOK</div>
         <div class="sidebar-nav-item" onclick="openSection('design')">DESIGN</div>
@@ -113,7 +124,6 @@
   <!-- DESIGN PAGE -->
   <div id="design-page" class="section-page" data-section="design">
     <aside class="sidebar">
-      <img src="img/logo-white.png" alt="Diskité" class="sidebar-logo" onclick="closeSection()" />
       <nav class="sidebar-nav">
         <div class="sidebar-nav-item" onclick="openSection('book')">BOOK</div>
         <div class="sidebar-nav-item active" onclick="openSection('design')">DESIGN</div>
@@ -171,7 +181,6 @@
   <!-- CONTACT PAGE -->
   <div id="contact-page" class="section-page" data-section="contact">
     <aside class="sidebar">
-      <img src="img/logo-white.png" alt="Diskité" class="sidebar-logo" onclick="closeSection()" />
       <nav class="sidebar-nav">
         <div class="sidebar-nav-item" onclick="openSection('book')">BOOK</div>
         <div class="sidebar-nav-item" onclick="openSection('design')">DESIGN</div>
