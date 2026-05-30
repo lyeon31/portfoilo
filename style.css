@@ -1,0 +1,587 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --border: #2a2a2a;
+  --sidebar-w: 280px;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--black);
+  font-family: 'Lexend Mega', 'Pretendard', sans-serif;
+  font-weight: 500;
+  color: var(--white);
+}
+
+/* ───────────── LANGUAGE TOGGLE ───────────── */
+.lang-toggle {
+  position: fixed;
+  top: 20px;
+  right: 28px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  mix-blend-mode: difference; /* 배경색에 관계없이 항상 보임 */
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-family: 'Lexend Mega', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  padding: 4px 2px;
+  opacity: 0.38;
+  transition: opacity 0.2s;
+  line-height: 1;
+}
+
+.lang-btn:hover {
+  opacity: 0.7;
+}
+
+.lang-btn.active {
+  opacity: 1;
+  border-bottom: 1.5px solid #ffffff;
+}
+
+.lang-divider {
+  color: #ffffff;
+  font-size: 9px;
+  opacity: 0.3;
+  line-height: 1;
+}
+
+/* ───────────── MAIN PAGE ───────────── */
+#main-page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  transition: transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+#main-page.slide-up {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.hero {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rotating ring */
+.rotating-text-wrap {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rotating-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: spin 18s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.ring-text {
+  fill: var(--white);
+  font-family: 'Lexend Mega', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+}
+
+.logo-center {
+  position: relative;
+  z-index: 2;
+  width: 160px;
+  height: auto;
+  filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
+}
+
+/* Bottom nav */
+.main-nav {
+  background: var(--black);
+  border-top: 2px solid #ffffff;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 28px;
+  padding: 22px 56px;
+  border-bottom: 2px solid #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.nav-item:last-child {
+  border-bottom: none;
+}
+
+.nav-item:hover {
+  background: #141414;
+}
+
+.nav-item .arrow {
+  font-size: 20px;
+  transition: transform 0.25s;
+}
+
+.nav-item:hover .arrow {
+  transform: translateX(6px);
+}
+
+/* ───────────── SECTION PAGES ───────────── */
+.section-page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  background: var(--white);
+  color: var(--black);
+  transform: translateY(100%);
+  transition: transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
+  z-index: 20;
+}
+
+.section-page.open {
+  transform: translateY(0);
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--black);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  padding: 32px 40px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  z-index: 2;
+}
+
+.sidebar-logo {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  margin-bottom: auto;
+  transition: opacity 0.2s;
+}
+
+.sidebar-logo:hover {
+  opacity: 0.7;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-nav-item {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.2s;
+  padding: 4px 0;
+}
+
+.sidebar-nav-item:hover,
+.sidebar-nav-item.active {
+  color: var(--white);
+}
+
+/* Grid main */
+.grid-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 48px 48px 80px;
+  background: var(--white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px 32px; /* 행 gap은 pop-out 여백보다 크게 */
+}
+
+.grid-item {
+  cursor: pointer;
+}
+
+/* ── 카드 구조: 컬러 박스 + 위로 튀어나오는 이미지 ── */
+.thumb-wrap {
+  position: relative;
+  padding-top: 44px; /* 이미지가 이 만큼 박스 위로 올라옴 */
+}
+
+/* 컬러 그라데이션 네모 박스 — 모든 셀 동일한 비율 */
+.thumb-bg {
+  width: 100%;
+  aspect-ratio: 4 / 3.6;
+}
+
+/* 이미지가 박스 위로 float */
+.thumb-float {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 82%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.4s;
+}
+
+.grid-item:hover .thumb-float {
+  transform: translateX(-50%) translateY(-8px);
+  filter: drop-shadow(0 20px 36px rgba(0, 0, 0, 0.38));
+}
+
+/* ── 카드 단색 컬러 ── */
+.thumb-bg.color-1 { background: #8DC8E8; }   /* 하늘파랑 */
+.thumb-bg.color-2 { background: #D4A020; }   /* 황금 노랑 */
+.thumb-bg.color-3 { background: #9B4030; }   /* 테라코타 러스트 */
+
+/* thumbnew_2: 크기 확대 & 위치 조정 */
+.thumb-bg.color-2 ~ .thumb-float {
+  width: 96%;
+  top: 8px;
+}
+
+/* thumbnew_3: 크기 확대 + 아래로 내려 중심 맞춤 */
+.thumb-bg.color-3 ~ .thumb-float {
+  width: 92%;
+  top: 22px;
+}
+
+.item-label {
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--black);
+  letter-spacing: 0.02em;
+}
+
+.item-num {
+  font-weight: 500;
+}
+
+.item-year {
+  font-size: 12px;
+  color: #888;
+  margin-left: 4px;
+}
+
+/* ───────────── CONTACT ───────────── */
+.contact-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+}
+
+.contact-content {
+  max-width: 480px;
+  width: 100%;
+  padding: 0 32px;
+}
+
+.contact-title {
+  font-size: 48px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--black);
+  margin-bottom: 24px;
+}
+
+.contact-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 48px;
+}
+
+.mail-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--black);
+  color: var(--white);
+  text-decoration: none;
+  padding: 18px 36px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  transition: background 0.25s, gap 0.25s;
+  margin-bottom: 28px;
+}
+
+.mail-btn:hover {
+  background: #222;
+  gap: 24px;
+}
+
+.contact-email {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 32px;
+  letter-spacing: 0.05em;
+}
+
+.contact-sns {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #888;
+  letter-spacing: 0.05em;
+}
+
+.contact-divider {
+  color: #bbb;
+}
+
+/* ───────────── DETAIL MODAL ───────────── */
+.detail-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+
+.detail-modal.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.detail-inner {
+  background: var(--white);
+  color: var(--black);
+  width: 90%;
+  max-width: 900px;
+  max-height: 88vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(24px);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.detail-modal.open .detail-inner {
+  transform: translateY(0);
+}
+
+.detail-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--black);
+  z-index: 2;
+  line-height: 1;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.detail-close:hover {
+  opacity: 0.5;
+}
+
+.detail-body {
+  display: flex;
+  min-height: 480px;
+}
+
+.detail-img-wrap {
+  width: 45%;
+  min-width: 45%;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.detail-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-info {
+  flex: 1;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-num {
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.detail-title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.detail-year {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.detail-desc {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #333;
+  flex: 1;
+}
+
+.detail-meta {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 12px;
+  color: #888;
+  letter-spacing: 0.05em;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-meta span {
+  display: block;
+}
+
+/* ───────────── SCROLLBAR ───────────── */
+.grid-main::-webkit-scrollbar {
+  width: 4px;
+}
+.grid-main::-webkit-scrollbar-track {
+  background: transparent;
+}
+.grid-main::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+/* ───────────── RESPONSIVE ───────────── */
+@media (max-width: 860px) {
+  :root { --sidebar-w: 200px; }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 20px;
+  }
+
+  .grid-main {
+    padding: 32px 28px 60px;
+  }
+
+  .detail-body {
+    flex-direction: column;
+  }
+
+  .detail-img-wrap {
+    width: 100%;
+    min-width: unset;
+    height: 260px;
+  }
+}
+
+@media (max-width: 580px) {
+  :root { --sidebar-w: 160px; }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .sidebar {
+    padding: 24px 20px;
+  }
+
+  .rotating-text-wrap {
+    width: 220px;
+    height: 220px;
+  }
+
+  .logo-center {
+    width: 110px;
+  }
+
+  .nav-item {
+    padding: 18px 28px;
+    font-size: 13px;
+  }
+}

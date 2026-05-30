@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open \"/Users/iyeon/Desktop/아트북페어 사이트/index.html\")"
+    ]
+  }
+}

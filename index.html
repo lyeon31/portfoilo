@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diskité</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LANGUAGE TOGGLE -->
+  <div id="lang-toggle" class="lang-toggle">
+    <button class="lang-btn active" data-lang="ko" onclick="setLang('ko')">KO</button>
+    <span class="lang-divider">·</span>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    <span class="lang-divider">·</span>
+    <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">JA</button>
+  </div>
+
+  <!-- MAIN PAGE -->
+  <div id="main-page" class="page active">
+    <div class="hero">
+      <img src="img/BG.png" alt="Background" class="bg-image" />
+      <div class="hero-center">
+        <div class="rotating-text-wrap">
+          <svg class="rotating-ring" viewBox="0 0 300 300">
+            <defs>
+              <path id="circlePath" d="M 150,150 m -100,0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0"/>
+            </defs>
+            <text class="ring-text">
+              <textPath href="#circlePath" startOffset="0%" textLength="628" lengthAdjust="spacing">ARCHIVING · PRECIOUS · MEMORIES · IN · EVERY · PIECE ·</textPath>
+            </text>
+          </svg>
+          <img src="img/logo-white.png" alt="Diskité" class="logo-center" />
+        </div>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <div class="nav-item" onclick="openSection('book')">
+        <span>BOOK</span>
+        <span class="arrow">&#x2192;</span>
+      </div>
+      <div class="nav-item" onclick="openSection('design')">
+        <span>DESIGN</span>
+        <span class="arrow">&#x2192;</span>
+      </div>
+      <div class="nav-item" onclick="openSection('contact')">
+        <span>CONTACT</span>
+        <span class="arrow">&#x2192;</span>
+      </div>
+    </nav>
+  </div>
+
+  <!-- BOOK PAGE -->
+  <div id="book-page" class="section-page" data-section="book">
+    <aside class="sidebar">
+      <img src="img/logo-white.png" alt="Diskité" class="sidebar-logo" onclick="closeSection()" />
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-item active" onclick="openSection('book')">BOOK</div>
+        <div class="sidebar-nav-item" onclick="openSection('design')">DESIGN</div>
+        <div class="sidebar-nav-item" onclick="openSection('contact')">CONTACT</div>
+      </nav>
+    </aside>
+    <main class="grid-main">
+      <div class="grid">
+        <div class="grid-item" onclick="openDetail('book', 1)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-1"></div>
+            <img src="img/thumbnew_1.png" alt="별들에게 물어봐" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">1.</span> 별들에게 물어봐 <span class="item-year">2026</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('book', 2)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-2"></div>
+            <img src="img/thumbnew_2.png" alt="SAVE FILE CLUB" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">2.</span> SAVE FILE CLUB <span class="item-year">2026</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('book', 3)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-3"></div>
+            <img src="img/thumbnew_3.png" alt="걱정을 접자" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">3.</span> 걱정을 접자 <span class="item-year">2026</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('book', 4)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-1"></div>
+            <img src="img/thumbnew_1.png" alt="작품 4" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">4.</span> 작품 제목 <span class="item-year">2025</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('book', 5)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-2"></div>
+            <img src="img/thumbnew_2.png" alt="작품 5" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">5.</span> 작품 제목 <span class="item-year">2025</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('book', 6)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-3"></div>
+            <img src="img/thumbnew_3.png" alt="작품 6" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">6.</span> 작품 제목 <span class="item-year">2025</span></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- DESIGN PAGE -->
+  <div id="design-page" class="section-page" data-section="design">
+    <aside class="sidebar">
+      <img src="img/logo-white.png" alt="Diskité" class="sidebar-logo" onclick="closeSection()" />
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-item" onclick="openSection('book')">BOOK</div>
+        <div class="sidebar-nav-item active" onclick="openSection('design')">DESIGN</div>
+        <div class="sidebar-nav-item" onclick="openSection('contact')">CONTACT</div>
+      </nav>
+    </aside>
+    <main class="grid-main">
+      <div class="grid">
+        <div class="grid-item" onclick="openDetail('design', 1)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-1"></div>
+            <img src="img/thumbnew_1.png" alt="디자인 1" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">1.</span> 디자인 작품 1 <span class="item-year">2026</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('design', 2)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-2"></div>
+            <img src="img/thumbnew_2.png" alt="디자인 2" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">2.</span> 디자인 작품 2 <span class="item-year">2026</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('design', 3)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-3"></div>
+            <img src="img/thumbnew_3.png" alt="디자인 3" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">3.</span> 디자인 작품 3 <span class="item-year">2026</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('design', 4)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-1"></div>
+            <img src="img/thumbnew_1.png" alt="디자인 4" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">4.</span> 디자인 작품 4 <span class="item-year">2025</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('design', 5)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-2"></div>
+            <img src="img/thumbnew_2.png" alt="디자인 5" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">5.</span> 디자인 작품 5 <span class="item-year">2025</span></p>
+        </div>
+        <div class="grid-item" onclick="openDetail('design', 6)">
+          <div class="thumb-wrap">
+            <div class="thumb-bg color-3"></div>
+            <img src="img/thumbnew_3.png" alt="디자인 6" class="thumb-float" />
+          </div>
+          <p class="item-label"><span class="item-num">6.</span> 디자인 작품 6 <span class="item-year">2025</span></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div id="contact-page" class="section-page" data-section="contact">
+    <aside class="sidebar">
+      <img src="img/logo-white.png" alt="Diskité" class="sidebar-logo" onclick="closeSection()" />
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-item" onclick="openSection('book')">BOOK</div>
+        <div class="sidebar-nav-item" onclick="openSection('design')">DESIGN</div>
+        <div class="sidebar-nav-item active" onclick="openSection('contact')">CONTACT</div>
+      </nav>
+    </aside>
+    <main class="contact-main">
+      <div class="contact-content">
+        <h2 class="contact-title">CONTACT</h2>
+        <p class="contact-desc">작품 구매, 콜라보레이션, 기타 문의는<br />아래 버튼을 통해 메일을 보내주세요.</p>
+        <a href="mailto:lyeon31@gmail.com" class="mail-btn">
+          <span>SEND EMAIL</span>
+          <span class="arrow">&#x2192;</span>
+        </a>
+        <p class="contact-email">lyeon31@gmail.com</p>
+        <div class="contact-sns">
+          <span>Instagram</span>
+          <span class="contact-divider">·</span>
+          <span>@diskite</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- DETAIL MODAL -->
+  <div id="detail-modal" class="detail-modal">
+    <div class="detail-inner">
+      <button class="detail-close" onclick="closeDetail()">&#x2715;</button>
+      <div class="detail-body">
+        <div class="detail-img-wrap">
+          <img id="detail-img" src="" alt="" />
+        </div>
+        <div class="detail-info">
+          <p class="detail-num" id="detail-num"></p>
+          <h3 class="detail-title" id="detail-title"></h3>
+          <p class="detail-year" id="detail-year"></p>
+          <div class="detail-desc" id="detail-desc"></div>
+          <div class="detail-meta" id="detail-meta"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
