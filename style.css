@@ -233,7 +233,7 @@ html, body {
 .section-page {
   position: fixed;
   inset: 0;
-  padding-top: 64px; /* 섹션 헤더 높이만큼 오프셋 */
+  padding-top: 64px;
   display: flex;
   background: var(--white);
   color: var(--black);
@@ -244,6 +244,41 @@ html, body {
 
 .section-page.open {
   transform: translateY(0);
+}
+
+/* Design 페이지 — 블랙 배경 */
+#design-page {
+  background: var(--black);
+  color: var(--white);
+}
+
+#design-page .sidebar {
+  background: var(--black);
+  color: var(--white);
+}
+
+#design-page .sidebar-nav-item {
+  color: #555;
+}
+
+#design-page .sidebar-nav-item:hover {
+  color: #aaa;
+}
+
+#design-page .sidebar-nav-item.active {
+  color: var(--white);
+}
+
+#design-page .grid-main {
+  background: var(--black);
+}
+
+#design-page .item-label {
+  color: var(--white);
+}
+
+#design-page .item-year {
+  color: #666;
 }
 
 /* Sidebar */
