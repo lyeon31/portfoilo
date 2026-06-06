@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(open \"/Users/iyeon/Desktop/아트북페어 사이트/index.html\")"
+      "Bash(open \"/Users/iyeon/Desktop/아트북페어 사이트/index.html\")",
+      "WebFetch(domain:drive.google.com)",
+      "Bash(curl -s -L --max-redirs 3 \"https://drive.google.com/drive/folders/1xB3ecQoI7fOTFR14twUHj9Ofwx1sRj2V\" -H \"User-Agent: Mozilla/5.0\")",
+      "Bash(curl -sI \"https://drive.google.com/thumbnail?id=1SZseg-WkAKkYoTwIzknzwCX80EDKO8ag&sz=w1200\")",
+      "Bash(curl -sI \"https://lh3.googleusercontent.com/d/1SZseg-WkAKkYoTwIzknzwCX80EDKO8ag\")",
+      "Bash(curl -sI \"https://lh3.googleusercontent.com/d/1gnhKs_odbSQ5uIoYRgpXIav_enx3qjLL\")",
+      "Bash(curl -sI \"https://lh3.googleusercontent.com/d/1qYqXGRV0B-0Gi6ubTeMYKZj4zl4TZ_PD\")"
     ]
   }
 }

@@ -11,6 +11,9 @@
   <!-- SECTION HEADER (섹션 페이지에서만 보이는 상단 헤더) -->
   <header id="section-header" class="section-header">
     <img src="img/logo-white.png" alt="Diskité" class="sh-logo" onclick="closeSection()" />
+    <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
     <div class="sh-lang">
       <button class="lang-btn active" data-lang="ko" onclick="setLang('ko')">KO</button>
       <span class="lang-divider">·</span>
@@ -19,6 +22,24 @@
       <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">JA</button>
     </div>
   </header>
+
+  <!-- 모바일 네비게이션 드로어 -->
+  <div id="mobile-nav" class="mobile-nav">
+    <div class="mobile-nav-backdrop" onclick="toggleMobileNav()"></div>
+    <nav class="mobile-nav-drawer">
+      <button class="mobile-nav-close" onclick="toggleMobileNav()">&#x2715;</button>
+      <div class="mobile-nav-item" onclick="openSection('book'); toggleMobileNav()">BOOK</div>
+      <div class="mobile-nav-item" onclick="openSection('design'); toggleMobileNav()">DESIGN</div>
+      <div class="mobile-nav-item" onclick="openSection('contact'); toggleMobileNav()">CONTACT</div>
+      <div class="mobile-nav-lang">
+        <button class="lang-btn active" data-lang="ko" onclick="setLang('ko')">KO</button>
+        <span class="lang-divider">·</span>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <span class="lang-divider">·</span>
+        <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">JA</button>
+      </div>
+    </nav>
+  </div>
 
   <!-- MAIN LANG TOGGLE (메인 페이지 전용) -->
   <div id="lang-toggle" class="lang-toggle">
@@ -96,27 +117,6 @@
           </div>
           <p class="item-label"><span class="item-num">3.</span> 걱정을 접자 <span class="item-year">2026</span></p>
         </div>
-        <div class="grid-item" onclick="openDetail('book', 4)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-1"></div>
-            <img src="img/thumbnew_1.png" alt="작품 4" class="thumb-float" />
-          </div>
-          <p class="item-label"><span class="item-num">4.</span> 작품 제목 <span class="item-year">2025</span></p>
-        </div>
-        <div class="grid-item" onclick="openDetail('book', 5)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-2"></div>
-            <img src="img/thumbnew_2.png" alt="작품 5" class="thumb-float" />
-          </div>
-          <p class="item-label"><span class="item-num">5.</span> 작품 제목 <span class="item-year">2025</span></p>
-        </div>
-        <div class="grid-item" onclick="openDetail('book', 6)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-3"></div>
-            <img src="img/thumbnew_3.png" alt="작품 6" class="thumb-float" />
-          </div>
-          <p class="item-label"><span class="item-num">6.</span> 작품 제목 <span class="item-year">2025</span></p>
-        </div>
       </div>
     </main>
   </div>
@@ -130,50 +130,51 @@
         <div class="sidebar-nav-item" onclick="openSection('contact')">CONTACT</div>
       </nav>
     </aside>
-    <main class="grid-main">
-      <div class="grid">
-        <div class="grid-item" onclick="openDetail('design', 1)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-1"></div>
-            <img src="img/thumbnew_1.png" alt="디자인 1" class="thumb-float" />
+    <main class="design-grid-main">
+      <div class="design-grid">
+
+        <div class="dg-item" onclick="openDesignDetail(1)">
+          <div class="dg-img-wrap">
+            <img src="https://lh3.googleusercontent.com/d/1SZseg-WkAKkYoTwIzknzwCX80EDKO8ag" alt="Rootin Seongsu" class="dg-img" />
           </div>
-          <p class="item-label"><span class="item-num">1.</span> 디자인 작품 1 <span class="item-year">2026</span></p>
+          <p class="dg-label"><span class="dg-num">1.</span> ROOT IN SEONGSU <span class="dg-year">2025</span></p>
         </div>
-        <div class="grid-item" onclick="openDetail('design', 2)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-2"></div>
-            <img src="img/thumbnew_2.png" alt="디자인 2" class="thumb-float" />
+
+        <div class="dg-item" onclick="openDesignDetail(2)">
+          <div class="dg-img-wrap">
+            <img src="https://lh3.googleusercontent.com/d/1m0J4XZtUGsR9vPNytEtKMA-NlgffQ7Bp" alt="Ritchynitche" class="dg-img" />
           </div>
-          <p class="item-label"><span class="item-num">2.</span> 디자인 작품 2 <span class="item-year">2026</span></p>
+          <p class="dg-label"><span class="dg-num">2.</span> RITCHYNITCHE <span class="dg-year">2025</span></p>
         </div>
-        <div class="grid-item" onclick="openDetail('design', 3)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-3"></div>
-            <img src="img/thumbnew_3.png" alt="디자인 3" class="thumb-float" />
+
+        <div class="dg-item" onclick="openDesignDetail(3)">
+          <div class="dg-img-wrap">
+            <img src="https://lh3.googleusercontent.com/d/1aNc98TuC41B5hrxdzEECdV_vzRqg90CT" alt="루트인 제주" class="dg-img" />
           </div>
-          <p class="item-label"><span class="item-num">3.</span> 디자인 작품 3 <span class="item-year">2026</span></p>
+          <p class="dg-label"><span class="dg-num">3.</span> 루트인 제주 <span class="dg-year">2025</span></p>
         </div>
-        <div class="grid-item" onclick="openDetail('design', 4)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-1"></div>
-            <img src="img/thumbnew_1.png" alt="디자인 4" class="thumb-float" />
+
+        <div class="dg-item" onclick="openDesignDetail(4)">
+          <div class="dg-img-wrap">
+            <img src="https://lh3.googleusercontent.com/d/1gnhKs_odbSQ5uIoYRgpXIav_enx3qjLL" alt="2026 연하장" class="dg-img" />
           </div>
-          <p class="item-label"><span class="item-num">4.</span> 디자인 작품 4 <span class="item-year">2025</span></p>
+          <p class="dg-label"><span class="dg-num">4.</span> 2026 연하장 <span class="dg-year">2026</span></p>
         </div>
-        <div class="grid-item" onclick="openDetail('design', 5)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-2"></div>
-            <img src="img/thumbnew_2.png" alt="디자인 5" class="thumb-float" />
+
+        <div class="dg-item" onclick="openDesignDetail(5)">
+          <div class="dg-img-wrap">
+            <img src="https://lh3.googleusercontent.com/d/1aquzuErO25HW_m1M5xDCDF0sBqc1hhxd" alt="오늘의 평야" class="dg-img" />
           </div>
-          <p class="item-label"><span class="item-num">5.</span> 디자인 작품 5 <span class="item-year">2025</span></p>
+          <p class="dg-label"><span class="dg-num">5.</span> 오늘의 평야 <span class="dg-year">2025</span></p>
         </div>
-        <div class="grid-item" onclick="openDetail('design', 6)">
-          <div class="thumb-wrap">
-            <div class="thumb-bg color-3"></div>
-            <img src="img/thumbnew_3.png" alt="디자인 6" class="thumb-float" />
+
+        <div class="dg-item" onclick="openDesignDetail(6)">
+          <div class="dg-img-wrap">
+            <img src="https://lh3.googleusercontent.com/d/1qYqXGRV0B-0Gi6ubTeMYKZj4zl4TZ_PD" alt="Daki" class="dg-img" />
           </div>
-          <p class="item-label"><span class="item-num">6.</span> 디자인 작품 6 <span class="item-year">2025</span></p>
+          <p class="dg-label"><span class="dg-num">6.</span> DAKI <span class="dg-year">2025</span></p>
         </div>
+
       </div>
     </main>
   </div>
@@ -190,17 +191,12 @@
     <main class="contact-main">
       <div class="contact-content">
         <h2 class="contact-title">CONTACT</h2>
-        <p class="contact-desc">작품 구매, 콜라보레이션, 기타 문의는<br />아래 버튼을 통해 메일을 보내주세요.</p>
+        <p class="contact-desc">제품 구매 및 작업 문의, 기타 문의는<br />아래 버튼을 통해 메일로 보내주세요.</p>
         <a href="mailto:lyeon31@gmail.com" class="mail-btn">
           <span>SEND EMAIL</span>
           <span class="arrow">&#x2192;</span>
         </a>
-        <p class="contact-email">lyeon31@gmail.com</p>
-        <div class="contact-sns">
-          <span>Instagram</span>
-          <span class="contact-divider">·</span>
-          <span>@diskite</span>
-        </div>
+<a href="https://www.instagram.com/dis_ki.te/" target="_blank" rel="noopener" class="contact-ig-link">Instagram</a>
       </div>
     </main>
   </div>
@@ -212,6 +208,8 @@
       <div class="detail-body">
         <div class="detail-img-wrap">
           <img id="detail-img" src="" alt="" />
+          <button class="detail-img-arrow prev" id="detail-img-prev" onclick="detailImgNav(-1)">&#x2039;</button>
+          <button class="detail-img-arrow next" id="detail-img-next" onclick="detailImgNav(1)">&#x203A;</button>
         </div>
         <div class="detail-info">
           <p class="detail-num" id="detail-num"></p>
