@@ -1,3 +1,17 @@
+// ── UI 다국어 텍스트 ──────────────────────────────────────────────────
+
+const uiText = {
+  ko: {
+    contactDesc: '제품 구매 및 작업 문의, 기타 문의는<br />아래 버튼을 통해 메일로 보내주세요.'
+  },
+  en: {
+    contactDesc: 'For product purchases, project inquiries,<br />and all other questions, please send us an email.'
+  },
+  ja: {
+    contactDesc: '商品のご購入・お仕事のご依頼、<br />その他のお問い合わせはメールにてお願いします。'
+  }
+};
+
 // ── Google Sheets 데이터 로드 ─────────────────────────────────────────
 
 const SHEET_ID = '1N0LHf0FbKkUSMgKCWRtQWWzy_MAhu9j8TdhtM_Wdj18';
@@ -30,14 +44,14 @@ function loadSheetData() {
         if (section === 'design' && designData[id]) {
           if (title) designData[id].title = title;
           if (year)  designData[id].year  = year;
-          if (desc)  designData[id].desc  = desc;
-          if (meta.length) designData[id].meta = meta;
+          if (desc)  designData[id].desc.ko  = desc;
+          if (meta.length) designData[id].meta.ko = meta;
         }
         if (section === 'book' && bookData[id]) {
           if (title) bookData[id].title = title;
           if (year)  bookData[id].year  = year;
-          if (desc)  bookData[id].desc  = desc;
-          if (meta.length) bookData[id].meta = meta;
+          if (desc)  bookData[id].desc.ko  = desc;
+          if (meta.length) bookData[id].meta.ko = meta;
         }
       });
     })
@@ -56,13 +70,22 @@ let currentLang = 'ko';
 function setLang(lang) {
   currentLang = lang;
 
-  // 버튼 active 상태 업데이트
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
-
-  // body에 lang 클래스 적용 (추후 번역 텍스트 토글용)
   document.body.dataset.lang = lang;
+
+  // UI 텍스트 일괄 교체
+  const t = uiText[lang] || uiText.ko;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key]) el.innerHTML = t[key];
+  });
+
+  // 모달이 열려있으면 현재 언어로 재렌더
+  if (document.getElementById('detail-modal').classList.contains('open')) {
+    _renderDetail();
+  }
 }
 
 // 초기 lang 설정
@@ -141,31 +164,71 @@ function toggleMobileNav() {
 
 // ── Detail modal data ─────────────────────────────────────────────────
 
+const GD = 'https://lh3.googleusercontent.com/d/';
+const GB = GD; // book images use same CDN
+
 const bookData = {
   1: {
-    title: '별들에게 물어봐',
-    year: '2026',
-    img: 'img/thumbnew_1.png',
-    desc: `가장 한국인스러운 서울 여행 버킷리스트를 담은 아트북입니다. 서울의 골목과 문화를 경쾌한 일러스트와 함께 기록한 작업입니다.`,
-    meta: ['카테고리 : 아트북', '판형 : 148 × 210mm', '페이지 : 64p', '발행 : 2026']
-  },
-  2: {
     title: 'SAVE FILE CLUB',
     year: '2026',
-    img: 'img/thumbnew_2.png',
-    desc: `게임 문화에서 영감을 받은 아트북입니다. 플레이어의 기억과 세이브 포인트를 은유로 삼아, 일상의 소중한 순간을 기록하는 방식에 대해 이야기합니다.`,
-    meta: ['카테고리 : 아트북', '판형 : 148 × 210mm', '페이지 : 80p', '발행 : 2026']
+    images: [
+      GB+'1nXS36CPLZxDxgbxyjodg3FWxrlX4YErA',
+      GB+'1PUF1HRp_ApLfhswHCtBMrTtR8QMG9moO',
+      GB+'1_-_AgH0j5N6lOOuS9fGkL3p9JURAfEZQ',
+      GB+'16H6Rv8dE4TBeEf5tiBN9MU_ALpVrVWEU',
+      GB+'1ox7ye2eFLcMhV6BIaPkYSnCetuYGzjZj',
+      GB+'1bZGU-nIbs_YSHeNcvcBVMk1bm39CSc6r',
+      GB+'1HQaXY6kcRBaSgMdy4yVDe0wSVRFF7YQs',
+      GB+'16ZEwJQowdzI33NTzxkKDW00NbhqPvmDE'
+    ],
+    desc: {
+      ko: `『SAVE FILE CLUB』은 디자인을 조금 덜 진지하게 하고 싶다는 생각에서 시작된 책입니다.\n디자인은 멋있는 결과물보다, "거의 다 됐어요"를 외치며 새벽을 버티고, 레퍼런스를 찾다가 갑자기 딴짓을 하고, 에러와 수정 속에서 계속 저장 버튼을 누르는 과정에 더 가깝다고 생각했습니다.\n\n그래서 이 책은 디자인을 버티기 위한 공략집처럼 구성했습니다.\n게임기 형태의 북케이스 안에는 아이디어를 찾는 방법, 마감을 버티는 언어, 에러 속에서 살아남는 방식들을 각각의 게임팩처럼 담았습니다.`,
+      en: `『SAVE FILE CLUB』was born from a desire to approach design a little less seriously.\nDesign feels less like producing impressive work and more like surviving late nights yelling "almost done!", getting distracted mid-reference-search, and pressing save over and over through errors and revisions.\n\nSo this book is structured like a strategy guide for surviving design.\nInside the game console-shaped book case, ideas for finding inspiration, language for enduring deadlines, and ways to survive errors are each packed in like game cartridges.`,
+      ja: `『SAVE FILE CLUB』は、デザインをもう少し気楽に楽しみたいという気持ちから生まれた本です。\nデザインとは、かっこいい成果物よりも、「もうすぐ完成！」と叫びながら深夜を乗り越え、参考資料を探しながらついよそ見をして、エラーと修正の中でセーブボタンを押し続けるプロセスに近いと思います。\n\nそのためこの本は、デザインを乗り越えるための攻略本のように構成されています。\nゲーム機の形をしたブックケースの中に、アイデアの見つけ方、締め切りを乗り越えるための言葉、エラーの中で生き残る方法が、それぞれゲームカートリッジのように収められています。`
+    },
+    meta: {
+      ko: ['카테고리 : 아트북', '판형 : 67×69mm', '페이지 : 각 20p', '발행 : 2026'],
+      en: ['Category : Art Book', 'Format : 67×69mm', 'Pages : 20p each', 'Published : 2026'],
+      ja: ['カテゴリー : アートブック', '判型 : 67×69mm', 'ページ : 各20p', '発行 : 2026']
+    }
+  },
+  2: {
+    title: 'My Aesthetic Literacy',
+    year: '2026',
+    images: [
+      GB+'1d7ZXddrf00yP-pCM0xAx1DIVmSGE7hI-',
+      GB+'1Bav0xV7xBBDGRCp7x0ADA2Z2MCDlfs0S',
+      GB+'1VckgVaSsN7h8qi3tJRfUpxu4oYbenYHp',
+      GB+'1LkqnkIuvMFHUiukowwElxu4dJzbIFoVv',
+      GB+'1DZ3AvsCD9Dih8AWn8tawdd2tzhLwzX4H'
+    ],
+    desc: {
+      ko: `『My Aesthetic Literacy』는 이미지를 수집하고 분류하는 과정을 통해 개인의 미감이 어떻게 형성되는지를 탐구하는 출판물이다.\n\n우리는 수많은 이미지를 저장하고 소비하지만, 정작 왜 그것을 좋아하게 되었는지에 대해서는 깊이 생각하지 않는다. 이 책은 일상 속에서 발견한 시각적 요소들을 기록하고 연결하며, 취향이 만들어지는 과정을 하나의 개인적 아카이브로 풀어낸다.\n\n독자는 책을 읽는 동시에 자신의 미감을 관찰하고 수집하는 경험에 참여하게 된다.`,
+      en: `『My Aesthetic Literacy』is a publication exploring how personal aesthetic sensibility is formed through collecting and categorizing images.\n\nWe save and consume countless images, yet rarely think deeply about why we've come to love them. This book records and connects visual elements found in everyday life, tracing how taste is formed as a personal archive.\n\nReaders simultaneously read the book and participate in an experience of observing and collecting their own aesthetic sensibility.`,
+      ja: `『My Aesthetic Literacy』は、イメージを収集・分類するプロセスを通じて、個人の美的感性がどのように形成されるかを探求する出版物です。\n\n私たちは無数のイメージを保存・消費しながら、なぜそれを好きになったのかをほとんど深く考えません。この本は日常の中で発見した視覚的要素を記録し繋ぎ合わせ、趣味・嗜好が形成されるプロセスを個人的なアーカイブとして紐解きます。\n\n読者は本を読みながら、自分の美的感性を観察・収集する体験に参加することになります。`
+    },
+    meta: {
+      ko: ['카테고리 : 아트북', '판형 : 120 × 140mm', '페이지 : 88p', '발행 : 2026'],
+      en: ['Category : Art Book', 'Format : 120 × 140mm', 'Pages : 88p', 'Published : 2026'],
+      ja: ['カテゴリー : アートブック', '判型 : 120 × 140mm', 'ページ : 88p', '発行 : 2026']
+    }
   },
   3: {
-    title: '걱정을 접자',
+    title: '별들에게 물어봐',
     year: '2026',
-    img: 'img/thumbnew_3.png',
-    desc: `일상의 걱정과 불안을 종이접기처럼 접어 내려놓는 이야기를 담은 아트북입니다. 텍스트와 이미지의 균형 속에서 독자에게 작은 위로를 전합니다.`,
-    meta: ['카테고리 : 아트북', '판형 : 148 × 210mm', '페이지 : 56p', '발행 : 2026']
+    images: ['img/thumbnew_03.png'],
+    desc: {
+      ko: `가장 한국인스러운 서울 여행 버킷리스트를 담은 아트북입니다. 서울의 골목과 문화를 경쾌한 일러스트와 함께 기록한 작업입니다.`,
+      en: `An art book featuring the most quintessentially Korean Seoul travel bucket list. A work documenting the alleyways and culture of Seoul through vibrant illustrations.`,
+      ja: `最もコリアンらしいソウル旅行バケットリストを詰め込んだアートブックです。ソウルの路地裏と文化を、明るいイラストとともに記録した作品です。`
+    },
+    meta: {
+      ko: ['카테고리 : 아트북', '판형 : 148 × 210mm', '페이지 : 64p', '발행 : 2026'],
+      en: ['Category : Art Book', 'Format : 148 × 210mm', 'Pages : 64p', 'Published : 2026'],
+      ja: ['カテゴリー : アートブック', '判型 : 148 × 210mm', 'ページ : 64p', '発行 : 2026']
+    }
   },
 };
-
-const GD = 'https://lh3.googleusercontent.com/d/';
 
 const designData = {
   1: {
@@ -190,8 +253,16 @@ const designData = {
       GD+'1AEGenyRhRkAqrREo0qtOrjZ-r-2HIqgn',
       GD+'1QAptFvHI78c15gIkM8u1TNp7Oh33q5_U'
     ],
-    desc: `ROOT in SEONGSU\nCollage Your Taste\n\n루트인 성수 팝업에서\n키비주얼 디자인과 내부 공간 전반의 비주얼 작업을 진행했습니다.\n\nFASHION · TASTE · RITUAL · BEAUTY\n네 가지 카테고리를 컬러와 그래픽 오브제로 구조화하고,\n공간 전체가 하나의 콜라주처럼 보이도록 설계했습니다.\n\nKV 제작부터\n포토부스, 인테리어, POP 그래픽까지\n브랜드 메시지가 공간 안에서 자연스럽게 경험되도록 작업했습니다.`,
-    meta: ['카테고리 : 브랜드 아이덴티티', '클라이언트 : @rootin.festa']
+    desc: {
+      ko: `ROOT in SEONGSU\nCollage Your Taste\n\n루트인 성수 팝업에서\n키비주얼 디자인과 내부 공간 전반의 비주얼 작업을 진행했습니다.\n\nFASHION · TASTE · RITUAL · BEAUTY\n네 가지 카테고리를 컬러와 그래픽 오브제로 구조화하고,\n공간 전체가 하나의 콜라주처럼 보이도록 설계했습니다.\n\nKV 제작부터\n포토부스, 인테리어, POP 그래픽까지\n브랜드 메시지가 공간 안에서 자연스럽게 경험되도록 작업했습니다.`,
+      en: `ROOT in SEONGSU\nCollage Your Taste\n\nAt the Rootin Seongsu pop-up,\nwe handled key visual design and overall visual work throughout the interior space.\n\nFASHION · TASTE · RITUAL · BEAUTY\nFour categories were structured through color and graphic objects,\ndesigned so the entire space reads as a single collage.\n\nFrom KV production to\nphoto booths, interior design, and POP graphics,\nwe ensured the brand message could be experienced naturally within the space.`,
+      ja: `ROOT in SEONGSU\nCollage Your Taste\n\nルートイン聖水のポップアップにて\nキービジュアルデザインと空間全体のビジュアルワークを担当しました。\n\nFASHION · TASTE · RITUAL · BEAUTY\n4つのカテゴリーをカラーとグラフィックオブジェクトで構造化し、\n空間全体が一つのコラージュに見えるよう設計しました。\n\nKV制作から\nフォトブース、インテリア、POPグラフィックまで\nブランドメッセージが空間の中で自然に体験できるよう制作しました。`
+    },
+    meta: {
+      ko: ['카테고리 : 브랜드 아이덴티티', '클라이언트 : @rootin.festa'],
+      en: ['Category : Brand Identity', 'Client : @rootin.festa'],
+      ja: ['カテゴリー : ブランドアイデンティティ', 'クライアント : @rootin.festa']
+    }
   },
   2: {
     title: 'Ritchynitche',
@@ -201,8 +272,16 @@ const designData = {
       GD+'1Wj-dieay2NT7wfYUwIuO7YMCQZcP_476',
       GD+'11OGmsLL3oEZV-W5xJ0OGZqjbbJT4qxx0'
     ],
-    desc: `Ritchy Niche Cap Collection 🎀\n\n스크립트 로고에 하트와 날개 라인을 연결해\n키치하면서도 러블리한 무드를 담았습니다.\n\n자수 두께, 캡 곡면 가독성, 컬러 배합까지\n고려한 작업입니다.`,
-    meta: ['카테고리 : 패션 그래픽디자인', '클라이언트 : @ritchynitche']
+    desc: {
+      ko: `Ritchy Niche Cap Collection 🎀\n\n스크립트 로고에 하트와 날개 라인을 연결해\n키치하면서도 러블리한 무드를 담았습니다.\n\n자수 두께, 캡 곡면 가독성, 컬러 배합까지\n고려한 작업입니다.`,
+      en: `Ritchy Niche Cap Collection 🎀\n\nBy connecting heart and wing lines to the script logo,\nwe captured a kitsch yet lovely mood.\n\nEmbroidery thickness, legibility on the cap's curved surface,\nand color combinations were all carefully considered.`,
+      ja: `Ritchy Niche Cap Collection 🎀\n\nスクリプトロゴにハートと翼のラインを繋げ、\nキッチュながらもラブリーなムードを表現しました。\n\n刺繍の太さ、キャップの曲面での可読性、\nカラーの組み合わせまで丁寧に考慮した作品です。`
+    },
+    meta: {
+      ko: ['카테고리 : 패션 그래픽디자인', '클라이언트 : @ritchynitche'],
+      en: ['Category : Fashion Graphic Design', 'Client : @ritchynitche'],
+      ja: ['カテゴリー : ファッショングラフィックデザイン', 'クライアント : @ritchynitche']
+    }
   },
   3: {
     title: '루트인 제주',
@@ -222,8 +301,16 @@ const designData = {
       GD+'1qg6h0sCb-YFa7jkiCxfe4WkAz_-_BvMw',
       GD+'1bk604sDHIVdQXgtTxJCzJV6dvYv7TL6s'
     ],
-    desc: `루트인 제주 2025 Wellness Festa\n〈루트인 제주〉 키비주얼 디자인\n\n'잃어버린 낭만을 찾아서'라는 메시지를 중심으로\n제주의 자연과 웰니스 경험을 하나의 그래픽 언어로 정리했습니다.\n\n러프한 타이포는 자유롭고 감성적인 무드를,\n그린과 옐로우 중심의 컬러는 자연·회복·에너지를 상징합니다.\n\n포스터, 맵, 스탬프 미션 카드, 엽서, 현장 POP, 사인물까지\n온·오프라인 전반에 동일한 톤앤매너를 적용했습니다.`,
-    meta: ['카테고리 : 브랜드 아이덴티티', '클라이언트 : @rootin.festa']
+    desc: {
+      ko: `루트인 제주 2025 Wellness Festa\n〈루트인 제주〉 키비주얼 디자인\n\n'잃어버린 낭만을 찾아서'라는 메시지를 중심으로\n제주의 자연과 웰니스 경험을 하나의 그래픽 언어로 정리했습니다.\n\n러프한 타이포는 자유롭고 감성적인 무드를,\n그린과 옐로우 중심의 컬러는 자연·회복·에너지를 상징합니다.\n\n포스터, 맵, 스탬프 미션 카드, 엽서, 현장 POP, 사인물까지\n온·오프라인 전반에 동일한 톤앤매너를 적용했습니다.`,
+      en: `Root in Jeju 2025 Wellness Festa\n〈Root in Jeju〉Key Visual Design\n\nCentered on the message 'In search of lost romance,'\nwe organized Jeju's nature and wellness experience into a unified graphic language.\n\nRough typography represents a free and emotional mood,\nwhile the green and yellow palette symbolizes nature, recovery, and energy.\n\nFrom posters, maps, stamp mission cards, postcards, on-site POP, and signage,\nthe same tone and manner was applied across all online and offline touchpoints.`,
+      ja: `ルートイン済州 2025 Wellness Festa\n〈ルートイン済州〉キービジュアルデザイン\n\n「失われたロマンを求めて」というメッセージを中心に\n済州の自然とウェルネス体験を一つのグラフィック言語にまとめました。\n\nラフなタイポグラフィは自由で感性的なムードを、\nグリーンとイエロー中心のカラーは自然・回復・エネルギーを象徴します。\n\nポスター、マップ、スタンプミッションカード、ポストカード、現場POP、サインまで\nオン・オフライン全体に同一のトーン&マナーを適用しました。`
+    },
+    meta: {
+      ko: ['카테고리 : 브랜드 아이덴티티', '클라이언트 : @rootin.festa'],
+      en: ['Category : Brand Identity', 'Client : @rootin.festa'],
+      ja: ['カテゴリー : ブランドアイデンティティ', 'クライアント : @rootin.festa']
+    }
   },
   4: {
     title: '2026 연하장',
@@ -245,8 +332,16 @@ const designData = {
       GD+'1aqWcHiKxJPHOCEBD4IN95ifbNSVkLVdY',
       GD+'1W9b5675W3VPfMEWCqzjzVBFd3W5MFaY7'
     ],
-    desc: `2026년을 시작하며, 당신을 주저하게 만드는 걱정들을 이 종이에 털어놓으세요. 뒷면 점선을 따라 단호하게 접어버리세요.\n1년뒤, 다시 펼쳐보면 알게 될거예요. 당신을 괴롭힌 거대한 걱정들은 사실 종이 한 장의 무게도 안되었다는 것을요.`,
-    meta: ['카테고리 : 그래픽 디자인']
+    desc: {
+      ko: `2026년을 시작하며, 당신을 주저하게 만드는 걱정들을 이 종이에 털어놓으세요. 뒷면 점선을 따라 단호하게 접어버리세요.\n1년뒤, 다시 펼쳐보면 알게 될거예요. 당신을 괴롭힌 거대한 걱정들은 사실 종이 한 장의 무게도 안되었다는 것을요.`,
+      en: `As 2026 begins, write down the worries holding you back on this paper. Fold it firmly along the dotted lines on the back.\nA year later, when you unfold it again, you'll realize — the enormous worries that troubled you didn't even weigh as much as a single sheet of paper.`,
+      ja: `2026年の始まりに、あなたをためらわせる不安をこの紙に書き出してください。裏面の点線に沿ってきっぱりと折りたたんでください。\n1年後、再び開いてみれば気づくはずです。あなたを苦しめた大きな悩みは、実は紙一枚の重さにも満たなかったということを。`
+    },
+    meta: {
+      ko: ['카테고리 : 그래픽 디자인'],
+      en: ['Category : Graphic Design'],
+      ja: ['カテゴリー : グラフィックデザイン']
+    }
   },
   5: {
     title: '오늘의 평야',
@@ -267,8 +362,16 @@ const designData = {
       GD+'1qjxQP_OvjgoQvUMXH53GuHGx7PO4mL5c',
       GD+'1MEfbSQR6gxeEzBlaiX6xPAT2i4BKIztr'
     ],
-    desc: `오늘의 평야 브랜딩 작업에 참여했습니다.\n\n전북 김제 평야에서 시작된 이 브랜드는\n'갓 도정한 쌀을 가장 맛있는 순간에 전달한다'는 가치에서 출발합니다.\n\n평야라는 이름이 가진 넓고 단단한 이미지를 바탕으로, 브랜드의 톤과 비주얼 방향을 함께 설계했습니다.\n패키지 디자인 작업 및 홈페이지 디자인을 함께 진행했습니다.`,
-    meta: ['카테고리 : 브랜드 아이덴티티', '클라이언트 : 오늘의 평야 @todayfield.official']
+    desc: {
+      ko: `오늘의 평야 브랜딩 작업에 참여했습니다.\n\n전북 김제 평야에서 시작된 이 브랜드는\n'갓 도정한 쌀을 가장 맛있는 순간에 전달한다'는 가치에서 출발합니다.\n\n평야라는 이름이 가진 넓고 단단한 이미지를 바탕으로, 브랜드의 톤과 비주얼 방향을 함께 설계했습니다.\n패키지 디자인 작업 및 홈페이지 디자인을 함께 진행했습니다.`,
+      en: `I participated in the branding work for Oneul-ui Pyeongya (Today's Plain).\n\nThis brand, born from the plains of Gimje in North Jeolla Province,\nstarts from the value of 'delivering freshly milled rice at its most delicious moment.'\n\nBased on the wide, solid image held by the name 'plain,' we designed the brand's tone and visual direction together.\nPackaging design and website design were also carried out together.`,
+      ja: `今日の平野のブランディング作業に参加しました。\n\n全羅北道金堤の平野から始まったこのブランドは、\n「精米したてのお米を一番美味しい瞬間に届ける」という価値から出発しています。\n\n「平野」という名前が持つ広くて力強いイメージをベースに、\nブランドのトーンとビジュアルの方向性を共に設計しました。\nパッケージデザインとウェブサイトデザインも一緒に進めました。`
+    },
+    meta: {
+      ko: ['카테고리 : 브랜드 아이덴티티', '클라이언트 : 오늘의 평야 @todayfield.official'],
+      en: ['Category : Brand Identity', 'Client : Oneul-ui Pyeongya @todayfield.official'],
+      ja: ['カテゴリー : ブランドアイデンティティ', 'クライアント : 오늘의 평야 @todayfield.official']
+    }
   },
   6: {
     title: 'Daki',
@@ -285,8 +388,16 @@ const designData = {
       GD+'12AYubMfOeTpmyfDn9N3curdrgJUqMnVE',
       { type: 'video', id: '193PLM3qvs85qeYro340ZNpjXr6mu4l90' }
     ],
-    desc: `Daki는 한국 말차를 기반으로 한 음료 브랜드 프로젝트입니다.\n기존 로고를 리브랜딩 하면서 브랜드 전반 아이덴티티 작업을 진행했습니다.`,
-    meta: ['카테고리 : 브랜드 아이덴티티', '클라이언트 : Daki']
+    desc: {
+      ko: `Daki는 한국 말차를 기반으로 한 음료 브랜드 프로젝트입니다.\n기존 로고를 리브랜딩 하면서 브랜드 전반 아이덴티티 작업을 진행했습니다.`,
+      en: `Daki is a beverage brand project based on Korean matcha.\nWe carried out a full brand identity project while rebranding the existing logo.`,
+      ja: `DakiはKorean Matchaを基盤とした飲料ブランドプロジェクトです。\n既存のロゴをリブランディングしながら、ブランド全体のアイデンティティ制作を行いました。`
+    },
+    meta: {
+      ko: ['카테고리 : 브랜드 아이덴티티', '클라이언트 : Daki'],
+      en: ['Category : Brand Identity', 'Client : Daki'],
+      ja: ['カテゴリー : ブランドアイデンティティ', 'クライアント : Daki']
+    }
   }
 };
 
@@ -338,7 +449,7 @@ function _renderDetail() {
   const data = _detailSection === 'book' ? bookData[_detailItemIdx] : designData[_detailItemIdx];
   if (!data) return;
 
-  const imgs = _detailSection === 'design' ? data.images : [data.img];
+  const imgs = data.images || (data.img ? [data.img] : []);
   const item = imgs[_detailImgIdx];
 
   // 미디어 영역 교체
@@ -349,11 +460,18 @@ function _renderDetail() {
   else wrap.insertBefore(newEl, wrap.firstChild);
   newEl.id = 'detail-img';
 
+  // 현재 언어로 desc/meta 가져오기 (객체면 언어별, 문자열이면 그대로)
+  const lang = currentLang || 'ko';
+  const desc = typeof data.desc === 'object' ? (data.desc[lang] || data.desc.ko || '') : (data.desc || '');
+  const meta = typeof data.meta === 'object' && !Array.isArray(data.meta)
+    ? (data.meta[lang] || data.meta.ko || [])
+    : (data.meta || []);
+
   document.getElementById('detail-num').textContent = `No. ${String(_detailItemIdx).padStart(2, '0')}`;
   document.getElementById('detail-title').textContent = data.title;
   document.getElementById('detail-year').textContent = data.year;
-  document.getElementById('detail-desc').innerHTML = data.desc.replace(/\n/g, '<br />');
-  document.getElementById('detail-meta').innerHTML = data.meta.map(m => `<span>${m}</span>`).join('');
+  document.getElementById('detail-desc').innerHTML = desc.replace(/\n/g, '<br />');
+  document.getElementById('detail-meta').innerHTML = meta.map(m => `<span>${m}</span>`).join('');
 
   _updateDetailArrows(imgs);
 }
@@ -372,7 +490,7 @@ function _updateDetailArrows(imgs) {
 
 function detailImgNav(dir) {
   if (_detailAnimating) return;
-  const data = _detailSection === 'design' ? designData[_detailItemIdx] : null;
+  const data = _detailSection === 'design' ? designData[_detailItemIdx] : bookData[_detailItemIdx];
   if (!data || !data.images) return;
   const newIdx = _detailImgIdx + dir;
   if (newIdx < 0 || newIdx >= data.images.length) return;
