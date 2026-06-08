@@ -75,7 +75,7 @@
               <path id="circlePath" d="M 150,150 m -100,0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0"/>
             </defs>
             <text class="ring-text">
-              <textPath href="#circlePath" startOffset="0%" textLength="628" lengthAdjust="spacing">ARCHIVING · PRECIOUS · MEMORIES · IN · EVERY · PIECE ·</textPath>
+              <textPath href="#circlePath" startOffset="0%" textLength="628" lengthAdjust="spacing">ARCHIVING · PRECIOUS · MEMORIES · <tspan class="easter-in-trigger" onclick="triggerEasterEgg()">IN</tspan> · EVERY · PIECE ·</textPath>
             </text>
           </svg>
           <img src="img/logo-white.png" alt="Diskité" class="logo-center" />
@@ -115,21 +115,21 @@
             <div class="thumb-bg color-2"></div>
             <img src="img/thumbnew_01.png" alt="SAVE FILE CLUB" class="thumb-float" />
           </div>
-          <p class="item-label"><span class="item-num">1.</span> SAVE FILE CLUB <span class="item-year">2026</span></p>
+          <p class="item-label">SAVE FILE CLUB <span class="item-year">2026</span></p>
         </div>
         <div class="grid-item" onclick="openDetail('book', 2)">
           <div class="thumb-wrap thumb-wrap-center">
             <div class="thumb-bg color-pink"></div>
             <img src="img/thumbnew_02.png" alt="My Aesthetic Literacy" class="thumb-float" />
           </div>
-          <p class="item-label"><span class="item-num">2.</span> My Aesthetic Literacy <span class="item-year">2026</span></p>
+          <p class="item-label">My Aesthetic Literacy <span class="item-year">2026</span></p>
         </div>
         <div class="grid-item" onclick="openDetail('book', 3)">
           <div class="thumb-wrap">
             <div class="thumb-bg color-1"></div>
             <img src="img/thumbnew_03.png" alt="별들에게 물어봐" class="thumb-float" />
           </div>
-          <p class="item-label"><span class="item-num">3.</span> 별들에게 물어봐 <span class="item-year">2026</span></p>
+          <p class="item-label">별들에게 물어봐 <span class="item-year">2026</span></p>
         </div>
       </div>
     </main>
@@ -151,42 +151,42 @@
           <div class="dg-img-wrap">
             <img src="https://lh3.googleusercontent.com/d/1SZseg-WkAKkYoTwIzknzwCX80EDKO8ag" alt="Rootin Seongsu" class="dg-img" />
           </div>
-          <p class="dg-label"><span class="dg-num">1.</span> ROOT IN SEONGSU <span class="dg-year">2025</span></p>
+          <p class="dg-label">ROOT IN SEONGSU <span class="dg-year">2025</span></p>
         </div>
 
         <div class="dg-item" onclick="openDesignDetail(2)">
           <div class="dg-img-wrap">
             <img src="https://lh3.googleusercontent.com/d/1m0J4XZtUGsR9vPNytEtKMA-NlgffQ7Bp" alt="Ritchynitche" class="dg-img" />
           </div>
-          <p class="dg-label"><span class="dg-num">2.</span> RITCHYNITCHE <span class="dg-year">2025</span></p>
+          <p class="dg-label">RITCHYNITCHE <span class="dg-year">2025</span></p>
         </div>
 
         <div class="dg-item" onclick="openDesignDetail(3)">
           <div class="dg-img-wrap">
             <img src="https://lh3.googleusercontent.com/d/1aNc98TuC41B5hrxdzEECdV_vzRqg90CT" alt="루트인 제주" class="dg-img" />
           </div>
-          <p class="dg-label"><span class="dg-num">3.</span> 루트인 제주 <span class="dg-year">2025</span></p>
+          <p class="dg-label">루트인 제주 <span class="dg-year">2025</span></p>
         </div>
 
         <div class="dg-item" onclick="openDesignDetail(4)">
           <div class="dg-img-wrap">
             <img src="https://lh3.googleusercontent.com/d/1gnhKs_odbSQ5uIoYRgpXIav_enx3qjLL" alt="2026 연하장" class="dg-img" />
           </div>
-          <p class="dg-label"><span class="dg-num">4.</span> 2026 연하장 <span class="dg-year">2026</span></p>
+          <p class="dg-label">2026 연하장 <span class="dg-year">2026</span></p>
         </div>
 
         <div class="dg-item" onclick="openDesignDetail(5)">
           <div class="dg-img-wrap">
             <img src="https://lh3.googleusercontent.com/d/1aquzuErO25HW_m1M5xDCDF0sBqc1hhxd" alt="오늘의 평야" class="dg-img" />
           </div>
-          <p class="dg-label"><span class="dg-num">5.</span> 오늘의 평야 <span class="dg-year">2025</span></p>
+          <p class="dg-label">오늘의 평야 <span class="dg-year">2025</span></p>
         </div>
 
         <div class="dg-item" onclick="openDesignDetail(6)">
           <div class="dg-img-wrap">
             <img src="https://lh3.googleusercontent.com/d/1qYqXGRV0B-0Gi6ubTeMYKZj4zl4TZ_PD" alt="Daki" class="dg-img" />
           </div>
-          <p class="dg-label"><span class="dg-num">6.</span> DAKI <span class="dg-year">2025</span></p>
+          <p class="dg-label">DAKI <span class="dg-year">2025</span></p>
         </div>
 
       </div>
@@ -226,7 +226,6 @@
           <button class="detail-img-arrow next" id="detail-img-next" onclick="detailImgNav(1)">&#x203A;</button>
         </div>
         <div class="detail-info">
-          <p class="detail-num" id="detail-num"></p>
           <h3 class="detail-title" id="detail-title"></h3>
           <p class="detail-year" id="detail-year"></p>
           <div class="detail-desc" id="detail-desc"></div>

@@ -1162,3 +1162,29 @@ iframe.detail-media-el {
     padding-top: 4vh;
   }
 }
+
+/* ── Easter Egg ─────────────────────────────────────────────────────── */
+.easter-hamster {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+}
+.easter-hamster img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.easter-poop {
+  position: fixed;
+  z-index: 9998;
+  width: 11px;
+  height: 9px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(circle at 38% 32%, #8B4513, #2C1503);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  pointer-events: none;
+  transition: opacity 0.9s ease;
+}
+.easter-in-trigger {
+  cursor: default;
+}

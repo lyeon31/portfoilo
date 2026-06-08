@@ -467,7 +467,6 @@ function _renderDetail() {
     ? (data.meta[lang] || data.meta.ko || [])
     : (data.meta || []);
 
-  document.getElementById('detail-num').textContent = `No. ${String(_detailItemIdx).padStart(2, '0')}`;
   document.getElementById('detail-title').textContent = data.title;
   document.getElementById('detail-year').textContent = data.year;
   document.getElementById('detail-desc').innerHTML = desc.replace(/\n/g, '<br />');
@@ -537,3 +536,82 @@ function closeDetail() {
 document.getElementById('detail-modal').addEventListener('click', function (e) {
   if (e.target === this) closeDetail();
 });
+
+// ── Easter Egg ───────────────────────────────────────────────────────
+
+const EGG_H1 = GD + '1hds4X_rO2ETwqVAsGJgSBc3fzUF7FJD8'; // 햄1.png
+const EGG_H2 = GD + '1dacFKhFhhY1VmLSScYA5AZndk_90kX6o'; // 햄2.png
+
+function triggerEasterEgg() {
+  if (document.querySelectorAll('.easter-hamster').length >= 15) return;
+  const count = 3 + Math.floor(Math.random() * 3); // 3~5마리
+  for (let i = 0; i < count; i++) {
+    setTimeout(_spawnHamster, i * 550 + Math.random() * 350);
+  }
+}
+
+function _spawnHamster() {
+  const wrap = document.createElement('div');
+  wrap.className = 'easter-hamster';
+  const img = document.createElement('img');
+  img.src = EGG_H1;
+  img.draggable = false;
+  wrap.appendChild(img);
+  document.body.appendChild(wrap);
+
+  const size       = 55 + Math.random() * 40;                            // 55~95px
+  const yBase      = (0.12 + Math.random() * 0.62) * window.innerHeight; // 12~74vh
+  const speed      = 1.6 + Math.random() * 1.8;                          // px/frame
+  const POOP_EVERY = 85 + Math.random() * 65;                            // px 간격
+
+  wrap.style.width = size + 'px';
+
+  let posX       = window.innerWidth + size + 10;
+  let frameTimer = 0;
+  let curFrame   = 0;
+  let poopDist   = 0;
+
+  function tick() {
+    posX       -= speed;
+    frameTimer++;
+    poopDist   += speed;
+
+    // 걷기 프레임 교체 (~150ms @ 60fps = 9 frames)
+    if (frameTimer >= 9) {
+      curFrame = 1 - curFrame;
+      img.src  = curFrame === 0 ? EGG_H1 : EGG_H2;
+      frameTimer = 0;
+    }
+
+    // 똥 투하
+    if (poopDist >= POOP_EVERY) {
+      _spawnPoop(posX + size * 0.85, yBase + size * 0.8);
+      poopDist = 0;
+    }
+
+    // 걷는 느낌의 위아래 흔들림
+    const bob = Math.sin(posX * 0.13) * 2.5;
+    wrap.style.left = posX + 'px';
+    wrap.style.top  = (yBase + bob) + 'px';
+
+    if (posX > -size - 10) {
+      requestAnimationFrame(tick);
+    } else {
+      wrap.remove();
+    }
+  }
+
+  requestAnimationFrame(tick);
+}
+
+function _spawnPoop(x, y) {
+  const p = document.createElement('div');
+  p.className  = 'easter-poop';
+  p.style.left = x + 'px';
+  p.style.top  = y + 'px';
+  document.body.appendChild(p);
+  setTimeout(() => {
+    p.style.opacity = '0';
+    setTimeout(() => p.remove(), 900);
+  }, 3500);
+}
